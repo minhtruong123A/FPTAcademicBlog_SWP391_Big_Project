@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+        <!--chu y YOUR_CLIENT_ID.apps.googleusercontent.com se dc cho khi tao xong console cloud gg, cai nay toi ch lam xong-->
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <style>
+            body {
+                background-image: url("https://img.freepik.com/premium-vector/full-color-gradient-abstract-background-orange-backgrounds-vector-illustration_542898-61.jpg");
+                background-size: cover;
+                display: flex;
+                margin: 10px auto;
+                padding:30px;
+
+            }
+            .review{
+                flex-basis: 64%;
+                padding: 20px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                margin-right:2px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+            }
+            .review img{
+                width: 100%;
+                height:570px;
+                object-fit: cover; /* Đảm bảo các ảnh giữ kích thước và cắt hoặc lấp đầy khung */
+                transition: transform 0.5s ease;
+            }
+            .container {
+                flex-basis: 36%;
+                max-width: 500px;
+                padding: 20px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            }
+
+            @media (max-width: 580px) {
+                .container {
+                    width: 100%;
+                    padding: 20px;
+                    background-color: #fff;
+                    border: 1px solid #ccc;
+                    border-radius: 10px;
+
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                }
+                .review{
+                    display: none
+
+                }
+                body {
+                    display: block;
+                }
+                .position .logoo{
+                	display: block;
+                	width: 105px;
+                	height: 135px;
+                	background-size: cover;
+                	border-radius: 50%;
+                	position: absolute;
+                	top:5px;
+                	left:33.5%;
+                }
+            }
+
+            input[type="text"], input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                box-sizing: border-box;
+            }
+            .button {
+                width:47%;
+                background-color: #4CAF50;
+                height:44px;
+                border: none;
+                color: white;
+                padding: 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin:0px auto;
+                cursor: pointer;
+                border-radius: 10px;
+                transition-duration: 0.4s;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                animation-name: buttonAnim;
+                animation-duration: 1s;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 4s;
+
+            }
+            .button:hover {
+                background-color: #3e8e41;
+            }
+
+            .button1 {
+                width:47%;
+                background-color: #4CAF50;
+                height:44px;
+                border: none;
+                color: white;
+                padding: 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin:0px auto;
+                cursor: pointer;
+                border-radius: 10px;
+                transition-duration: 0.4s;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                animation-name: buttonAnim;
+                animation-duration: 1s;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 4s;
+
+            }
+            .button1 a{
+                color: white;
+            }
+
+            .button1:hover {
+                background-color: #3e8e41;
+            }
+
+            .logo {
+                display: block;
+                margin:0px auto;
+                width: 150px;
+                height: 150px;
+                background-color:white;
+                border-radius: 50%;
+                border-top:4px solid orange;
+                border-bottom:2px solid blue;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                animation-name: logoAnim;
+                animation-duration: 5s;
+                animation-iteration-count: infinite;
+                animation-timing-function: ease-in-out;
+            }
+            @keyframes logoAnim {
+                0% {
+                    transform: rotate(0deg);
+                }
+                50% {
+                    transform: rotate(180deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            @keyframes buttonAnim {
+                0% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.1);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+            .g-signin2 {
+                display: inline-block;
+                width:47%;
+                height:55px;
+                background-color: #4285f4;
+                color: #fff;
+                border-radius: 10px;
+                padding: 10px 20px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
+                animation-name:buttonAnim;
+                animation-duration: 1s;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 4s;
+                text-align: center;
+            }
+
+            .g-signin2:hover {
+                background-color: #357ae8;
+            }
+
+            .g-signin2:active {
+                background-color: #1669f2;
+            }
+
+
+            .font{
+                text-align: center;
+                padding:15px;
+            }
+
+            .font1{
+                display: flex;
+                align-items: center;
+                padding:10px;
+            }
+            .font1::before, .font1::after {
+                flex: 1;
+                content: '';
+                border-top:1px solid gray;
+                margin: 10px;
+            }
+
+            .g-signin3 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width:100%;
+                height:55px;
+                background-color: #4285f4;
+                border-radius: 10px;
+                padding: 10px;
+                color: white;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
+                animation-name:buttonAnim;
+                animation-duration: 1s;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 4s;
+                text-align: center;
+                text-decoration: none;
+            }
+            .g-signin3 a{
+                color: white;
+
+            }
+
+            .g-signin3:hover {
+                background-color: #357ae8;
+            }
+
+            .g-signin3:active {
+                background-color: #1669f2;
+            }
+
+            .flexing{
+                display: flex;
+                justify-content: space-between;
+            }
+            .logoo{
+                display: block;
+                width: 145px;
+                height: 145px;
+                background-size: cover;
+                border-radius: 50%;
+                position: absolute;
+                top:5px;
+                left:33.5%;
+            }
+            .position{
+                position: relative;
+            }
+            .googlelogo{
+                width:25px;
+                height:25px;
+                border-radius:5px;
+                margin-right:9px;
+                padding: none;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="review">
+            <div id="slideshow-container">
+                <img src="https://hcmuni.fpt.edu.vn/Data/Sites/1/media/hinh-gioi-thieu-dai-hoc-fpt/hcm.png" alt="Đại học FPT">
+                <img src="https://hcmuni.fpt.edu.vn/Data/Sites/1/media/hinh-gioi-thieu-dai-hoc-fpt/dn.jpg" alt="Đại học FPT">
+                <img src="https://hcmuni.fpt.edu.vn/Data/Sites/1/media/hinh-gioi-thieu-dai-hoc-fpt/qn.jpg" alt="Đại học FPT">
+                <img src="https://hcmuni.fpt.edu.vn/Data/Sites/1/media/hinh-gioi-thieu-dai-hoc-fpt/hn.jpg" alt="Đại học FPT">
+            </div>
+        </div>
+        <div class="container">
+            <div class="position">
+                <div class="logo"></div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/FPTUCT.png" class="logoo">
+            </div>
+            <form action="login" method="post">
+                <label for="username">USERNAME</label>
+                <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Enter your username">
+
+                <label for="password">PASSWORD</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                    </label>
+                </div>
+                <div class="flexing">
+                    <button class="button" type="submit" value="Log In">Login</button>
+                    <a th:href="@{/Background}" class="button1">Back</a>
+                </div>
+                <div class="font1">
+                    OR
+                </div>
+                <div class="flexing">
+                    <div class="col-md-6, g-signin3"><a href="loginadmin">login by admin</a></div>
+                </div>
+                <div class="font">
+                    Don't have an account? <a href="registeraccount" class="color">Register here</a>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            let slideIndex = 0;
+            const slides = document.querySelectorAll("#slideshow-container img");
+
+            function showSlides() {
+                slides.forEach((slide) => {
+                    slide.style.display = "none";
+                });
+                slideIndex++;
+                if (slideIndex >= slides.length) {
+                    slideIndex = 0;
+                }
+                slides[slideIndex].style.display = "block";
+            }
+
+            function changeSlide(n) {
+                slideIndex += n;
+                if (slideIndex >= slides.length) {
+                    slideIndex = 0;
+                } else if (slideIndex < 0) {
+                    slideIndex = slides.length - 1;
+                }
+                showSlides();
+            }
+
+            setInterval(showSlides, 3000); // Tự động chuyển hình sau mỗi 3 giây
+            showSlides();
+        </script>
+    </body>
+</html>
+
+
+

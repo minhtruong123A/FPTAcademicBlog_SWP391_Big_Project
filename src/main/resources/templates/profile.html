@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Update Profile Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-image: url("https://img.freepik.com/premium-vector/full-color-gradient-abstract-background-orange-backgrounds-vector-illustration_542898-61.jpg");
+                background-size: cover;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .left, .right {
+                margin-top:15px;
+                flex-basis: 100%;
+                background-color: white;
+                border: 1px solid #ccc;
+                text-align: center;
+                height: auto;
+                border-radius: 20px;
+                width:45%;
+            }
+            .left {
+                padding: 20px;
+            }
+
+            .right {
+                padding: 20px;
+            }
+
+            .img-container {
+                height: 90%;
+                text-align: center;
+            }
+
+            .img-container img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: cover; /* Để tấm ảnh tự động mở rộng để lấp đầy phần 1 */
+                width: 100%; /* Để tấm ảnh lấp đầy phần 1 theo chiều ngang */
+                height: 100%; /* Để tấm ảnh lấp đầy phần 1 theo chiều dọc */
+            }
+
+            .img-container div {
+                margin-top: 15px;
+            }
+
+            .right div {
+                margin-bottom: 25px;
+            }
+
+            .right div span {
+                font-weight: bold;
+                display: inline-block;
+                width: 150px;
+                font-size: 1.2em;
+            }
+
+            input[type="text"],input[type="date"],input[type="password"] {
+                width: 70%;
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+            }
+            textarea{
+                width: 72%;
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                resize: none;
+            }
+
+            /* Để tùy chỉnh nút "Save Changes" và "Reset Changes" */
+            .add button {
+                background-color: #4CAF50; /* Màu xanh lá */
+                color: white; /* Màu trắng */
+                border: none;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 10px 10px;
+                cursor: pointer;
+            }
+
+            /* Gạch dưới khi di chuột qua nút */
+            .add button:hover {
+                text-decoration: underline;
+            }
+
+            .logoo{
+                display: block;
+                width: 135px;
+                height: 135px;
+                background-size: cover;
+                border-radius: 50%;
+                position: absolute;
+                top:5px;
+                left:4%;
+            }
+            .position{
+                position: relative;
+            }
+            .logo {
+                display: block;
+                margin:0px auto;
+                width: 150px;
+                height: 150px;
+                background-color:white;
+                border-radius: 50%;
+                border-top:4px solid orange;
+                border-bottom:2px solid blue;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                animation-name: logoAnim;
+                animation-duration: 5s;
+                animation-iteration-count: infinite;
+                animation-timing-function: ease-in-out;
+            }
+            .search1{
+                height:200px;
+            }
+
+            h1 {
+                text-align: center;
+                font-size: 30px;
+                margin-bottom: 30px;
+                color: white;
+                text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            }
+
+            @keyframes logoAnim {
+                0% {
+                    transform: rotate(0deg);
+                }
+                50% {
+                    transform: rotate(180deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .minh{
+                display: flex;
+                margin-left: 24px;
+            }
+            @media (max-width: 700px) {
+                .position{
+                    display:none;
+                }
+                .container{
+                    margin-top:30px;
+                    padding-bottom: 60px;
+                }
+                .right{
+                    width:80%;
+                }
+                .right span{
+                    text-align: left;
+                    margin-right:110px;
+                }
+                .minh{
+                    display:block;
+                    margin-left:none;
+                    width:95%;
+                }
+                textarea{
+                    margin-right:25px;
+                }
+                .minh span{
+                    margin-right: 137px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="position">
+                <div class="logo"></div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/FPTUCT.png" class="logoo">
+            </div>
+            <h1>Update my profile</h1>
+            <div class="right">
+                <div> RoleID <div th:text="${user.roleId}">Student</div></div>  
+                <form action="viewprofilee" method="POST">
+                    <div>
+                        <span>UserID:</span> 
+                        <input type="text" class="search" placeholder="" th:value="${user.userID}"  id="userid" name="userid"   readonly="">
+                    </div>
+                    <div>
+                        <span>UserName:</span> 
+                        <input type="text" class="search" placeholder="" id="username" name="username" th:value="${user.userName}" readonly="">
+                    </div>
+                    <div>
+                        <span>Password:</span> 
+                        <input type="password" class="search" placeholder="" id="password" name="password"  th:value="${user.password}">
+                    </div>
+                    <div>
+                        <span>Confirm:</span> 
+                        <input type="password" class="search" placeholder="" id="confirmpassword" name="confirmpassword" th:value="${user.password}">
+                        <p class="red" th:text="${PasswordConfirmError}"></p>
+                    </div>
+                    <div>
+                        <span>Birthdate:</span> 
+                        <input type="date" class="search" placeholder="" id="birthdate" name="birthdate" th:value="${user.birthdate}">
+                    </div>
+                    <div class="minh">
+                        <span>Description</span> 
+                        <textarea id="description" name="description" class="search1" th:text="${user.description}"></textarea>
+                    </div>              
+                    <div class="add">
+                        <button class="" type="submit" value="userupdate">Save Changes</button>
+                        <button class=""type="reset" value="reset">Reset Changes</button> 
+                    </div>
+                </form>         
+            </div>
+
+
+
+        </div>
+    </body>
+</html>

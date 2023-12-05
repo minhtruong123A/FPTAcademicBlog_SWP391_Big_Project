@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Profile Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f2f2f2;
+                /*                background-image: url('https://bloghomestay.vn/wp-content/uploads/2023/03/tong-hop-80-hinh-nen-bau-troi-dep-nhat-cho-may-tinh-iphone_8.jpg');  Thay đổi đường dẫn đến hình ảnh của bạn 
+                                background-repeat: no-repeat;
+                                background-size: cover;  Đảm bảo hình ảnh nền kích thước rộng và cao bằng kích thước của trình duyệt 
+                                background-position: center center;  Hiển thị hình ảnh ở trung tâm của trang 
+                                background-attachment: fixed;  Giữ hình ảnh nền cố định khi trang cuộn */
+            }
+
+
+            .container {
+                /*                background-color: white;  Màu nền trắng cho container */
+                background-image: url("https://img.freepik.com/premium-vector/full-color-gradient-abstract-background-orange-backgrounds-vector-illustration_542898-61.jpg");
+                background-size: cover;
+                padding: 10px; /* Khoảng cách 10px */
+                margin: 0 auto;
+                text-align: center;
+                border-bottom-left-radius: 6px;
+                border-bottom-right-radius: 32px;
+                position: fixed; /* Giữ cố định vị trí của container */
+                width: 100%; /* Chiều rộng 100% để container kéo dài ra cả trang */
+                top: 0; /* Đặt vị trí top ở đầu trang */
+                left: 0; /* Đặt vị trí left ở bên trái */
+                z-index: 1; /* Để container luôn nằm trên cùng của trang */
+            }
+
+            input[type="text"],
+            input[type="password"] {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                box-sizing: border-box;
+                border: 2px solid #ccc;
+                border-radius: 4px;
+            }
+
+            input[type="submit"] {
+                width: 100%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            img {
+                width: 150px;
+                border-radius: 50%;
+            }
+
+            .header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between; /* Thêm thuộc tính này để căn giữa giữa và tách biệt thành phần */
+            }
+
+            .left {
+                flex: 1;
+                margin-right: 50px;
+            }
+
+            .right {
+                flex: 1;
+                /*                text-align: right;*/
+                margin-left: 500px;
+                display: flex;
+                align-items: center;
+            }
+            .right h2 {
+                margin-right: 10px;
+                color: white;
+                font-size: 20px;
+            }
+
+            .search {
+                width: 430px !important; /* Kích thước ngắn hơn cho thanh tìm kiếm */
+                padding: 12px 20px;
+                margin: 8px 0;
+                box-sizing: border-box;
+                border: 2px solid #ccc;
+                border-radius: 4px;
+                /*                background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlEbnvQp_KImARXzvLrbaIMdp5gcKqhEMWuQ&usqp=CAU'); Đường dẫn đến hình ảnh từ URL */
+                background-image: url('https://png.pngtree.com/element_our/20190528/ourlarge/pngtree-magnifying-glass-icon-image_1128382.jpg');
+                background-repeat: no-repeat;
+                background-position: right center; /* Hiển thị hình ảnh ở phía bên phải và giữa */
+                background-size: contain; /* Hiển thị hình ảnh đầy đủ và thu nhỏ lại sao cho nó vừa với phần tìm kiếm */
+                padding-right: 30px; /* Để dự trữ không gian cho biểu tượng kính lúp */
+            }
+
+            .search:focus {
+                border: 2px solid #1E90FF; /* Màu viền xanh dương khi input được focus */
+                outline: none; /* Loại bỏ đường viền màu xanh khi focus (thường là hiệu ứng mặc định của trình duyệt) */
+            }
+
+            .login, .create {
+                margin-left: 10px;
+                background-color: #4CAF50; /* Màu xanh lá */
+                color: white; /* Màu trắng */
+                border: none;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 10px 10px;
+                cursor: pointer;
+            }
+
+            .login:hover, .create:hover {
+                text-decoration: underline;
+                /*                text-decoration-color: #1E90FF;*/
+            }
+
+
+
+            .content-container {
+                position: relative; /* Tạo vị trí tương đối cho content-container */
+                padding: 80px;
+            }
+
+            .content {
+                background-color: white;
+                margin-top: 10px; /* Khoảng cách 10px từ container */
+                display: flex;
+                justify-content: space-between;
+                position: relative; /* Tạo vị trí tương đối cho content */
+                z-index: 0; /* Đặt chỉ số z về 0 để nền xám nằm dưới */
+                border-radius: 10px;
+            }
+
+            .section1 {
+                text-align: center;
+                border: 1px solid #ccc;
+                padding: 10px;
+                width: 300px;
+                margin: 0 auto;
+                /*                flex: 8;  Phần 1 chiếm 8 phần trên tổng 10 */
+            }
+
+            /*            .content {
+                            flex: 2;  Phần 2 chiếm 2 phần trên tổng 10 
+                            overflow: hidden;
+                        }*/
+
+            /*            .section {
+                            padding: 20px;
+                            border: 1px solid #ccc;
+                            text-align: center;  Để căn giữa nội dung trong phần 2 
+                            border-radius: 0;
+                            overflow: none;
+                        }*/
+
+            .section1 {
+                flex-basis: 21.8%; /* Phần 1 chiếm 40% */
+                overflow: hidden; /* Ẩn phần ảnh vượt ra khỏi khung */
+                height: 270px;
+                border-bottom-left-radius: 10px;
+                border-top-left-radius: 10px;
+                margin-right:4px;
+            }
+
+            .sectiontrue{
+                flex-basis: 78.2%; /* Phần 1 chiếm 40% */
+                overflow: hidden; /* Ẩn phần ảnh vượt ra khỏi khung */
+                height: 270px;
+                text-align: center;
+                border: 1px solid #ccc;
+                padding: 10px;
+                width: 300px;
+                border-bottom-right-radius: 10px;
+                border-top-right-radius: 10px;
+                margin: 0 auto;
+            }
+
+            /*            .section:nth-child(2) {
+                            flex-basis: 70%;  Phần 2 chiếm 60% 
+                            position: relative;  Để tạo vị trí tương đối cho phần 2 
+                            overflow: hidden;  Ẩn phần ảnh vượt ra khỏi khung 
+                            height: 495px;  Chiều cao cố định cho phần 2 
+                        }*/
+
+            .section1 .bold-text {
+                font-weight: bold;
+                font-size: 1.5em;
+            }
+
+            /*            .section img {
+                            width: 100%;
+                            height: 100%;  Đảm bảo ảnh luôn nằm trong kích thước khung 
+                            object-fit: cover;  Đảm bảo các ảnh giữ kích thước và cắt hoặc lấp đầy khung 
+                            transition: transform 0.5s ease;
+                            padding-bottom: 56.25%;
+                            border-radius: 0;
+                        }*/
+
+            .profile {
+                width: 100% ;
+                height: 70% ;
+                object-fit: contain ;
+            }
+
+            .icon {
+                text-align: center; /* Canh giữa nội dung bên trong */
+                margin-top: -55px;
+                /*                Di chuyển lên trên 20px bằng cách đặt margin-top âm */
+            }
+
+            .icon h3,p {
+                display: inline;
+            }
+
+
+            .arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 30px;
+                height: 30px;
+                background-color: rgba(255, 255, 255, 0.5);
+                cursor: pointer;
+            }
+
+            .arrow-left {
+                left: 0;
+            }
+
+            .arrow-right {
+                right: 0;
+            }
+
+            .content-container2 {
+                display: flex;
+                justify-content: space-between;
+                padding-top: 100px;
+                padding-left: 80px;
+                padding-right: 80px;
+                margin-top: -160px; /* Khoảng cách 20px từ container */
+                margin-bottom:20px;
+                min-height: 600px;
+            }
+
+            .section3
+            {
+                flex-basis: 25%;
+                /*                padding: 20px;*/
+                border: 1px solid #ccc;
+                text-align: center;
+                border-radius: 10px;
+                margin-right:4px;
+            }
+
+            .section4 {
+                flex-basis: 75%;
+                background-color: white;
+                /*                padding: 20px;*/
+                border: 1px solid #ccc;
+                /*                text-align: center;*/
+                padding: 10px;
+                padding-left: 60px;
+                padding-right: 60px;
+                border-radius: 10px;
+            }
+
+            .section3 p,
+            .section4 p {
+                margin-bottom: 10px;
+            }
+
+            .bold-text {
+                font-weight: bold;
+                font-size: 18px;
+            }
+
+            .section3 a{
+                color: black;
+                text-decoration: none;
+            }
+            .section3 ul {
+                list-style-type: none;
+                text-align: left;
+                padding-left:20px;
+            }
+
+            .section3 ul li {
+                margin-bottom: 10px;
+            }
+
+            .section3 li {
+                cursor: pointer;
+                transition: background-color 0.3s ease, border-radius 0.3s ease, transform 0.3s ease; /* Thêm hiệu ứng transition */
+                border-radius: 8px; /* Góc bo tròn ban đầu */
+                /*                display: inline-block;  Để thuộc tính transform hoạt động chính xác */
+                display: block;  /*Chuyển thành block để hiển thị dọc  
+                padding: 4px; /* Khoảng cách giữa biểu tượng và chữ */
+            }
+
+            /* Màu nền và gạch dưới khi hover */
+            .section3 li:hover {
+                background-color: #64dede;
+                text-decoration: underline;
+                color: red;
+                border-radius: 4px; /* Thu ngắn lại và bo góc hơn */
+                transform: scale(1.1); /* Tăng kích thước khi hover */
+            }
+
+            /* Ẩn gạch dưới văn bản không hover */
+            .section3 li:not(:hover) {
+                text-decoration: none;
+            }
+
+            /*            .section4 .bold-text {
+                            font-weight: bold;
+                            font-size: 1.2em;
+                        }
+            
+                        .section4 .reaction {
+                            font-size: 1.5em;
+                            margin-top: 10px;
+                        }
+            
+                        .section4 .comment {
+                            font-size: 1.2em;
+                        }*/
+
+            .post {
+                margin-bottom: 20px;
+                background-color: #f0f2f5;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            .post-header {
+                margin-bottom: 10px;
+            }
+
+            .post-header h2 {
+                font-size: 18px;
+                color: #333;
+                margin-top: -5px;
+            }
+
+            .post-content p {
+                line-height: 1.5;
+            }
+
+            .post-footer {
+                font-size: 14px;
+                color: #777;
+                margin-top: 10px;
+            }
+
+            .post-footer span {
+                margin-right: 10px;
+            }
+
+            .likes {
+                color: #4267B2;
+            }
+
+            .comments {
+                color: #737373;
+            }
+
+            .add {
+                background-color: rgb(69, 191, 191);
+                padding: 10px 20px;
+                border: none;
+                width:100%;
+                border-radius: 8px;
+                color: white;
+                font-size: 15px;
+                cursor: pointer;
+                transition: text-decoration 0.3s, transform 0.3s;
+            }
+
+            .add:hover {
+                text-decoration: underline;
+                transform: scale(1.1);
+            }
+
+            .text {
+                display: none;
+            }
+
+            .hamburger, .mb {
+                display: none;
+            }
+
+            .headermb {
+                display: none;
+            }
+
+            .section3  {
+                padding-top: 15px;
+            }
+
+            /* CSS cho giao diện mobile */
+            @media screen and (max-width: 767px) {
+                .search {
+                    /*                    width: calc(100% - 70px);*/
+                    flex: 0.95;
+                }
+
+                .left, .hamburger {
+                    display: none;
+                }
+
+                .right {
+                    display: none;
+                }
+
+                .hamburger {
+                    display: block;
+                    font-size: 24px;
+                    margin-left: 0px;
+                    cursor: pointer;
+                }
+
+                .mb.show {
+                    display: block;
+                    position: absolute;
+                    top: 60px;
+                    right: 0;
+                    background: #fff;
+                    padding: 10px;
+                    z-index: 1;
+                    margin: 10px 0;
+                    margin-right: 310px;
+                }
+                textarea{
+                    width: 89%;
+                }
+
+                .headermb {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .headermb .hamburger {
+                    margin-right: 10px; /* Điều chỉnh khoảng cách bằng cách thay đổi giá trị của margin-right */
+                }
+
+                .close {
+                    font-size: 24px;
+                    cursor: pointer;
+                }
+
+                .menu {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .menu-item {
+                    margin: 10px 0;
+
+                }
+
+                .menu-item a {
+                    color: black;
+                    text-decoration: none;
+                }
+
+                .text {
+                    display: block;
+                }
+
+                .content{
+                    margin-top: 5px;
+                    margin-right: 10px;
+                }
+                .wrap{
+                    width: 100%;
+                    height: 230px;
+                    overflow: hidden;
+                    overflow-y: hidden;
+                }
+                .wrap img{
+                    width: 100% !important;
+                    height: 100% !important;
+                    display: block;
+                    margin-top: 20px !important;
+                }
+                .section{
+                    background: white;
+                }
+                .container {
+                    flex-direction: column;
+                    height: 60px;
+                }
+
+                .header {
+                    flex-direction: row;
+                    align-items: flex-start;
+                }
+
+                .right {
+                    margin-left: 0;
+                    margin-top: 2px;
+                }
+
+                .content-container {
+                    position: relative;
+                    padding: 0px;
+                    margin-top: 80px;
+                    /*                    margin-right: 42px;*/
+                }
+
+                .content {
+                    display: flex;
+                    width:100%;
+                    flex-basis: 100%;
+                }
+
+                .section1 {
+                    width: 100%;
+                    margin:0px;
+                    flex-basis: 100%;
+                }
+
+                .arrow {
+                    display: none;
+                }
+
+                .section4 {
+                    padding: 10px;
+                }
+
+                .content-section4 {
+                    font-size: 0.9em;
+                }
+                #slideshow-container{
+                    position: relative;
+                    max-width: 100%;
+                    max-height: 210px;
+                    /*                    height: auto;*/
+                    overflow: hidden;
+                }
+
+                .content-container2{
+                    margin-top: -100px;
+                    width: 100%;
+                    padding-right: 0;
+                    padding-left: 0;
+                }
+
+                .section3 {
+                    display: none;
+                }
+
+                .menu-item ul {
+                    list-style-type: none;
+                    padding: 0;
+                }
+
+                .menu-item ul li {
+                    margin-bottom: 10px;
+                }
+
+                .section4 {
+                    flex-basis: 95%;
+                    background-color: white;
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                }
+
+                .add {
+                    background-color: rgb(69, 191, 191);
+                    padding: 10px 20px;
+                    border: none;
+                    color: white;
+                    font-size: 15px;
+                    cursor: pointer;
+                    transition: text-decoration 0.3s, transform 0.3s;
+                }
+
+                .add:hover {
+                    text-decoration: underline;
+                    transform: scale(1.1);
+                }
+
+                .sectiontrue{
+                    display: none;
+                }
+
+            }
+
+            .icon2{
+                margin:30px auto;
+                font-size:20px;
+            }
+
+            .icon2 h,p{
+                margin-top:2px;
+            }
+            .icon2 p{
+                word-wrap: break-word;
+            }
+
+            .image{
+                width:50px;
+            }
+            .flexx{
+                display:flex;
+                align-items:center;
+            }
+            .post-headerr{
+                margin-top: 8px;
+                margin-left:10px;
+                font-size:10px;
+
+            }
+            .post-headerrr{
+
+                font-size:15px;
+            }
+            textarea{
+                height:120px;
+                width:95%;
+                resize: none;
+                padding: 12px 20px;
+            }
+            .titlee{
+                display:inline;
+            }
+            .buttont {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                border-radius: 4px;
+                height:43px;
+            }
+
+            .buttont:hover {
+                background-color: #45a049;
+            }
+
+            .buttonOwn {
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 16px;
+                margin-right:20px;
+                font-weight: bold;
+                text-align: center;
+                text-decoration: none;
+                border:none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            /* Update button */
+            .button-updateBlog {
+                background-color: green; /* Light green */
+                color: white;
+            }
+
+            /* Delete button */
+            .button-deleteBlog {
+                background-color: #ff0033;
+                color: white;
+            }
+
+            /* Animation */
+            .button-animation {
+                animation: buttonScale 0.3s ease;
+            }
+
+            /* Hover effect */
+            .buttonOwn:hover {
+                transform: scale(1.1);
+            }
+            .buttontt {
+                background-color: #4CAF50;
+                color: white;
+                margin-left:10px;
+                padding: 10px 30px;
+                margin-right: 40px;
+                border: none;
+                cursor: pointer;
+                border-radius: 4px;
+                height:43px;
+            }
+
+            #notificationButton {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                overflow: hidden;
+                z-index: 999;
+            }
+
+            #notificationButton img {
+                width: 100%;
+                height: 100%;
+            }
+
+            #notificationButton::before {
+                content: "";
+                display: block;
+                width: 10px;
+                height: 10px;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                border-radius: 50%;
+                background-color: red;
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+            }
+
+            #notificationButton.hasNotification::before {
+                opacity: 1;
+            }
+
+            #notificationBar {
+                position: fixed;
+                top: 80px;
+                right: -400px;
+                width: 600px;
+                height: 500px;
+                background-color: #f1f1f1;
+                box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.4);
+                padding: 20px;
+                box-sizing: border-box;
+                transition: right 0.5s ease-in-out;
+                z-index: 998;
+                overflow-y: auto;
+                display: none;
+                border-radius: 10px;
+
+            }
+
+            #notificationBar > div {
+                flex-grow: 1;
+            }
+
+            #notificationBar a {
+                text-decoration: none;
+                color: #007bff;
+                font-weight: bold;
+            }
+
+            #notificationButton.hasNotification + #notificationBar {
+                right: 80px;
+                display: block;
+            }
+
+            #notificationButton.hasNotification + #notificationBar div,
+            #notificationButton.hasNotification + #notificationBar a {
+                display: block;
+            }
+
+            #notificationBar .Notice {
+                background-color: white;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom:10px;
+                margin-left:-41px;
+                width:100%;
+
+            }
+            .dropdown {
+                position: relative;
+            }
+
+            .dropdown-btn {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                width:90%;
+                margin-top:10px;
+                border-radius: 10px;
+            }
+
+            .dropdown-btn:hover {
+                background-color: #388E3C; /* Darker green on hover */
+            }
+
+            .dropdown-content {
+                /*                position: absolute;*/
+                top: 110%;
+                left:0;
+                z-index: 1;
+                height: 220px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                display: none;
+                min-width: 270px;
+                padding: 10px;
+                background-color: #f2f2f2;
+                animation: slide-up 0.5s ease-in-out;
+            }
+
+            /* Custom scrollbar styles */
+            .dropdown-content::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            .dropdown-content::-webkit-scrollbar-track {
+                background-color: #e0e0e0;
+                border:2px solid white;
+                border-radius: 8px;
+            }
+
+            .dropdown-content::-webkit-scrollbar-thumb {
+                background-color: #888;
+                border-radius: 8px;
+            }
+
+            .dropdown-content::-webkit-scrollbar-thumb:hover {
+                background-color: #555;
+            }
+
+            .dropdown-content::-webkit-scrollbar-thumb:active {
+                background-color: #333;
+            }
+
+            .dropdown-content::-webkit-scrollbar-corner {
+                background-color: #f5f5f5;
+            }
+
+            .dropdown-content a {
+                display: block;
+                padding: 0px 0;
+                font-size: 16px;
+                text-decoration: none;
+                color: black;
+            }
+
+            .dropdown.show .dropdown-content {
+                display: block;
+            }
+
+            @keyframes slide-up {
+                0% {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            .custom-combobox {
+                width: 200px;
+                padding: 2px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 14px;
+                display: inline-block;
+                margin-right: 10px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <script>
+            function toggleNotificationBar() {
+                var notificationBar = document.getElementById('notificationBar');
+                var notificationButton = document.getElementById('notificationButton');
+                var form = document.getElementById('notificationForm');
+                var div = form.querySelector('div');
+                var a = form.querySelector('a');
+
+                if (div.textContent.trim() !== '' && a.hasAttribute('href')) {
+                    notificationBar.style.display = notificationBar.style.display === 'none' ? 'block' : 'none';
+                    notificationButton.classList.toggle('hasNotification');
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var notificationButton = document.getElementById('notificationButton');
+                var notificationBar = document.getElementById('notificationBar');
+                var form = document.getElementById('notificationForm');
+                var div = form.querySelector('div');
+                var a = form.querySelector('a');
+
+                // Check if the notification bar has any value on page load
+                if (div.textContent.trim() !== '' && a.hasAttribute('href')) {
+                    notificationButton.classList.add('hasNotification');
+                    notificationBar.style.right = '80px';
+                }
+            });
+        </script>
+        <button id="notificationButton" onclick="toggleNotificationBar()" th:if="${user.roleId == 'Student'}">
+            <img src="https://png.pngtree.com/png-vector/20191004/ourmid/pngtree-bell-icon-png-image_1791341.jpg" alt="Notification Bell">
+        </button>
+        <div id="notificationForm">
+            <div id="notificationBar">
+                <ul>
+                    <li th:each="getnotification : ${getnotification}" class="Notice" th:if="${getnotification.status == 0 || getnotification.status == -1}">
+                        <div th:if="${getnotification.status == 0}" style="color: #ffcc00">pending..</div>
+                        <div th:if="${getnotification.status == -1}" style="color: #ff0033">denied</div>
+                        <div th:text="${#strings.abbreviate(getnotification.title,11)} ">
+                        </div>
+                        <a th:href="@{/details/{id}(id=${getnotification.postId})}">View details</a>
+                        <form th:if="${getnotification.status == -1}" action="updateBlog" method="post" style="display: inline;width:88px">
+                            <input type="hidden" name="postId" th:value="${getnotification.postId}">
+                            <button type="submit" class="buttonOwn button-updateBlog button-animation">Repost</button>
+                        </form>
+                        <form th:if="${getnotification.status == -1}" action="deleteBlog" method="post" id="deleteForm" style="display: inline;width:88px">
+                            <input type="hidden" name="postId" th:value="${getnotification.postId}">
+                            <button type="submit" class="buttonOwn button-deleteBlog button-animation">Delete</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="header">
+                <form action="/search" method="GET">
+                    <div class="left">
+                        <input type="text" class="search" name="keywords" placeholder="Search...">
+                        <button class="buttont" type="submit">Search</button>
+                    </div>
+                </form>
+                <div class="right">
+                    <div class="post-headerr">
+                        <h2 th:text="${user.userName}">author</h2>
+                    </div>
+                    <button style="border-radius: 50%; width: 60px;
+                            height:60px;display: inline-flex; align-items:
+                            center;justify-content: center;  border: none;padding-top:4px;
+                            background-color: #4CAF50;cursor: pointer;
+                            overflow: hidden;">
+                        <a href="viewauthor">
+                            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg" class="image" alt="Image"/>
+                        </a>
+                    </button>
+                </div>
+                <form action="/approval" method="GET" th:if="${user.roleId == 'Lecturer'}">
+                    <div>
+                        <button class="buttontt" type="submit">Approval</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="headermb">               
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+
+                <input type="text" class="search" placeholder="Search...">
+            </div>
+
+            <div class="mb">
+                <div class="close">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+
+                <div class="menu">
+                    <div class="menu-item">
+                        <ul>
+                            <!--                            <li onclick="changeBackgroundColor(this)">&#127968; Home</li>-->
+                            <!--                            <li onclick="changeBackgroundColor(this)">&#127916; Videos</li>-->
+                            <li onclick="changeBackgroundColor(this)">&#127968; <a href="viewforum">Home</a></li>
+                            <li onclick="changeBackgroundColor(this)">&#128219; <a href="about">About</a></li>
+                            <li onclick="changeBackgroundColor(this)">&#128222; <a href="contact">Contact</a></li>
+                            <!--                            <li onclick="changeBackgroundColor(this)">&#129300; Software comparisons</li>
+                                                        <li onclick="changeBackgroundColor(this)">&#128214; Guides</li>-->
+                            <li onclick="changeBackgroundColor(this)">&#128100; <a href="viewprofile">Update Profile</a></li>
+                            <li onclick="changeBackgroundColor(this)">&#128682; <a href="logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="content-container">
+            <div class="content">
+                <!-- Phần 1 -->
+                <div class="section1">
+                    <p><span class="bold-text"> MY PROFILE </span></p>
+                    <div class="profile">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg" alt="Avatar" class="">
+                    </div>
+                    <div class="icon">
+                        <h3>&#127380; UserID: </h3><p th:text="${user.userID}"></p>
+                        </br></br><h3>&#128100; UserName: </h3>
+                        </br></br><p th:text="${user.userName}"></p>
+                    </div>
+
+                </div>
+
+
+                <!--                 Phần 2 -->
+                <div class="sectiontrue" id="page-content">
+                    <div class="icon2">
+                        <h3>&#128221; Description: </h3><p th:text="${user.description}"></p>
+                        <h3>&#127874; BirthDate: </h3><p th:text="${user.birthdate}"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="content-container2">
+            <!-- Phần 3 -->
+            <div class="section3">
+                <p><span class="bold-text">Navigation</span></p>
+                <ul>
+                    <li onclick="changeBackgroundColor(this)">&#127968; <a href="viewforum">Home</a></li>
+                    <!--                    <li onclick="changeBackgroundColor(this)">&#127916; Videos</li>-->
+                    <li onclick="changeBackgroundColor(this)">&#128219; <a href="about">About</a></li>
+                    <li onclick="changeBackgroundColor(this)">&#128222; <a href="contact">Contact</a></li>
+                    <!--                    <li onclick="changeBackgroundColor(this)">&#129300; Software comparisons</li>
+                                        <li onclick="changeBackgroundColor(this)">&#128214; Guides</li>-->
+                    <li onclick="changeBackgroundColor(this)">&#128100; <a href="viewprofile">Update Profile</a></li>
+                    <li onclick="changeBackgroundColor(this)">&#128682; <a href="logout">Logout</a></li>
+                </ul>
+
+                <div class="dropdown">
+                    <button class="dropdown-btn" onclick="toggleDropdown()">Categories</button>
+                    <div id="dropdownContent" class="dropdown-content">
+                        <ul th:each="category : ${category}" th:if="${category.status == 1}"> 
+                            <li onclick="changeBackgroundColor(this)"><a th:href="@{/detailcategory/{id}(id=${category.categoryId})}" th:text="${#strings.abbreviate(category.categoryName,28)}">Chicken</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <script>
+                    function toggleDropdown() {
+                        var dropdown = document.querySelector(".dropdown");
+                        dropdown.classList.toggle("show");
+                    }
+                </script>
+            </div>
+
+            <!-- Phần 4 -->
+            <div class="section4">
+                <form action="AddNewBlogAccount" method="POST" onsubmit="replaceLineBreaks()">
+                    <div class="post">
+                        <div class="post-header">
+                            <input type="text" class="notclean" placeholder="Title" id="NewTitle" name="NewTitle">
+                        </div>
+                        <div class="post-content">
+                            <!--                                <input type="text" class="" placeholder="Add..." id="NewContent" name="NewContent">-->
+                            <textarea id="NewContent" name="NewContent" rows="4" cols="50" placeholder="Content (limit up to 5000 characters)"></textarea>
+                        </div>
+                        <h4>Categories:</h4>
+                        <!--                th:field="*{category}"            -->
+                        <select class="custom-combobox" id="category" name="category">
+                            <option th:each="category : ${category}" th:if="${category.status == 1}" th:value="${category.categoryName}" th:text="${category.categoryName}"></option>
+                        </select>
+                        <div class="post-footer">
+                            <button type="submit" value="AddBlog" class="add">&#128395; Post</button>
+                        </div>
+
+
+                        <!--                    <p><span class="bold-text">Are you passionate about Software Engineering?</span></p>
+                                            <div class="reaction">&#128077;</div>  Biểu tượng reaction (đây là thumbs up) 
+                                            <div class="comment">&#128172;</div>  Biểu tượng comment -->
+                    </div>
+                </form>
+
+                <script>
+                    function replaceLineBreaks() {
+                        var paragraphInput = document.getElementById("NewContent");
+                        paragraphInput.value = paragraphInput.value.replace(/\r?\n/g, "<br>");
+                    }
+                </script>
+
+
+                <div th:each="post : ${post}" class="post" th:if="${post.status == 1}">
+                    <div class="flexx">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg" class="image" alt="Image"/>
+                        <div class="post-headerr">
+                            <h2 th:text="${post.author}">author</h2>
+                        </div>
+                    </div>
+                    <div class="post-headerrr" th:each="category : ${category}" th:if="${category.categoryId eq post.categoryId}">
+                        <h3>Category: <span style="background-color: #3498db; color: white;  font-weight: bold;padding: 6px 12px;
+                                            border-radius: 4px; margin-right: 8px;"  th:text="${category.categoryName}">Category</span></h3>
+                    </div>
+                    <div class="post-headerrr">
+                        <h2 th:text="${post.title}">title</h2>
+                    </div>
+                    <div style="border-top: 1px solid #000;"></div>
+                    </br>
+                    <div class="post-content">
+                        <p th:utext="${#strings.abbreviate(post.postContent,90)} ">content
+                    </div>
+                    </br>
+                    <div class="post-content">
+                        <a th:href="@{/details/{id}(id=${post.postId})}">Show More</a>
+                    </div>
+                    </br>
+                    </br>
+                    </br>
+                    <div class="post-footer">
+                        <div class="flexx">
+                            <form th:if="${user.userName == post.author}" action="updateBlog" method="post">
+                                <input type="hidden" name="postId" th:value="${post.postId}">
+                                <button type="submit" class="buttonOwn button-updateBlog button-animation">Update</button>
+                            </form>
+                            <!-- Button for delete -->
+                            <form th:if="${user.userName == post.author}" action="deleteBlog" method="post" id="deleteForm">
+                                <input type="hidden" name="postId" th:value="${post.postId}">
+                                <button type="submit" class="buttonOwn button-deleteBlog button-animation">Delete</button>
+                            </form>
+                        </div>
+                    </div>    
+                </div>  
+
+                <!--                <div class="post">
+                                    <div class="post-header">
+                                        <h2>Post Title</h2>
+                                    </div>
+                                    <div class="post-content">
+                                        <p>Are you passionate about Software Engineering?</p>
+                                    </div>
+                                    <div class="post-footer">
+                                        <span class="likes">&#128077; Thích</span>
+                                        <span class="comments">&#128172; Bình luận</span>
+                                    </div>
+                
+                                                        <p><span class="bold-text">Are you passionate about Software Engineering?</span></p>
+                                                        <div class="reaction">&#128077;</div>  Biểu tượng reaction (đây là thumbs up) 
+                                                        <div class="comment">&#128172;</div>  Biểu tượng comment 
+                                </div>
+                
+                                <div class="post">
+                                    <div class="post-header">
+                                        <h2>Post Title</h2>
+                                    </div>
+                                    <div class="post-content">
+                                        <p>Are you passionate about Software Engineering?</p>
+                                    </div>
+                                    <div class="post-footer">
+                                        <span class="likes">&#128077; Thích</span>
+                                        <span class="comments">&#128172; Bình luận</span>
+                                    </div>
+                
+                                                        <p><span class="bold-text">Are you passionate about Software Engineering?</span></p>
+                                                        <div class="reaction">&#128077;</div>  Biểu tượng reaction (đây là thumbs up) 
+                                                        <div class="comment">&#128172;</div>  Biểu tượng comment 
+                                </div>
+                
+                                <div class="post">
+                                    <div class="post-header">
+                                        <h2>Post Title</h2>
+                                    </div>
+                                    <div class="post-content">
+                                        <p>Are you passionate about Software Engineering?</p>
+                                    </div>
+                                    <div class="post-footer">
+                                        <span class="likes">&#128077; Thích</span>
+                                        <span class="comments">&#128172; Bình luận</span>
+                                    </div>
+                
+                                                        <p><span class="bold-text">Are you passionate about Software Engineering?</span></p>
+                                                        <div class="reaction">&#128077;</div>  Biểu tượng reaction (đây là thumbs up) 
+                                                        <div class="comment">&#128172;</div>  Biểu tượng comment 
+                                </div>
+                
+                                <div class="post">
+                                    <div class="post-header">
+                                        <h2>Post Title</h2>
+                                    </div>
+                                    <div class="post-content">
+                                        <p>Are you passionate about Software Engineering?</p>
+                                    </div>
+                                    <div class="post-footer">
+                                        <span class="likes">&#128077; Thích</span>
+                                        <span class="comments">&#128172; Bình luận</span>
+                                    </div>
+                
+                                                        <p><span class="bold-text">Are you passionate about Software Engineering?</span></p>
+                                                        <div class="reaction">&#128077;</div>  Biểu tượng reaction (đây là thumbs up) 
+                                                        <div class="comment">&#128172;</div>  Biểu tượng comment 
+                                </div>-->
+
+            </div>
+        </div>
+
+        <script>
+            let slideIndex = 0;
+            const slides = document.querySelectorAll("#slideshow-container img");
+
+            function showSlides() {
+                slides.forEach((slide) => {
+                    slide.style.display = "none";
+                });
+                slideIndex++;
+                if (slideIndex >= slides.length) {
+                    slideIndex = 0;
+                }
+                slides[slideIndex].style.display = "block";
+            }
+
+            function changeSlide(n) {
+                slideIndex += n;
+                if (slideIndex >= slides.length) {
+                    slideIndex = 0;
+                } else if (slideIndex < 0) {
+                    slideIndex = slides.length - 1;
+                }
+                showSlides();
+            }
+
+            setInterval(showSlides, 3000); // Tự động chuyển hình sau mỗi 3 giây
+            showSlides();
+        </script>
+
+        <script>
+            function changeBackgroundColor(element) {
+                element.style.backgroundColor = "#64dede";
+                element.style.borderRadius = "4px";
+                element.style.textDecoration = "underline";
+                element.style.color = "red";
+                element.style.transform = "scale(1.1)";
+            }
+        </script>
+
+        <script>
+            // JavaScript
+
+            const hamburger = document.querySelector('.hamburger');
+            const mb = document.querySelector('.mb');
+
+            hamburger.addEventListener('click', () => {
+                mb.classList.toggle('show');
+            });
+
+            const close = document.querySelector('.close');
+
+            close.addEventListener('click', () => {
+                mb.classList.remove('show');
+            });
+
+        </script>
+
+
+    </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Create Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background-image: url("https://img.freepik.com/premium-vector/full-color-gradient-abstract-background-orange-backgrounds-vector-illustration_542898-61.jpg");
+                background-size: cover;
+            }
+
+            form {
+                max-width: 500px;
+                margin: auto;
+                background-color: white;
+                background-position: center;
+                padding: 50px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                font-size:17px;
+            }
+
+            h1 {
+                text-align: center;
+                font-size: 30px;
+                margin-bottom: 30px;
+                color: white;
+                text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            }
+
+            label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="password"] {
+                display: block;
+                width: 100%;
+                padding: 10px;
+                border: 1px solid black;
+                border-bottom: 1px solid #ccc;
+                margin-bottom: 20px;
+                background-color: white;
+                border-radius: 10px;
+                font-size: 16px;
+            }
+
+            input[type="text"]:focus,
+            input[type="email"]:focus,
+            input[type="password"]:focus {
+                outline: none;
+                border-bottom: 1px solid #4CAF50;
+            }
+
+            input[type="submit"],input[type="reset"] {
+                width: 100%;
+                padding: 10px;
+                background-color: #4CAF50;
+                border: none;
+                color: #fff;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 10px;
+                margin:10px 10px 10px 10px;
+            }
+
+            input[type="submit"]:hover ,input[type="reset"]:hover   {
+                background-color: #45a049;
+            }
+            .he{
+                margin-left:95px;
+            }
+            .red{
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Please Sign In Your User Information Here!</h1>
+        <form action="create" method="POST">
+
+            User ID<input type="text" name="userID" value="" required=""/>
+                
+            </br> User Name<input type="text" name="FullName" required=""/>
+ <!--           <p class="red" th:text="usernameError">${session.usernameError}</p> -->
+            
+            </br> Role ID<input type="text" name="roleID" value="Student" readonly=""/>
+
+<!--            </br> FPT Email<input type="email" name="FPTMail" required=""/>
+            <p class="red" th:text="emailError">${session.emailError}</p>-->
+            
+            </br> Password<input type="password" name="Password" required=""/>
+
+            </br> Confirm<input type="password" name="confirm" required=""/>
+<!--            <p class="red" th:text="confirmError">${session.confirmError}</p> -->
+            
+            </br> <input type="submit" name="action" Value="Create" class="he"/>
+            <input type="reset" value="Reset"/>
+        </form>
+    </body>
+</html>
